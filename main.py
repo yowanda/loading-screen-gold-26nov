@@ -19,6 +19,12 @@ def main() -> None:
     path = os.path.join(out_dir, "entry.txt")
     with open(path, "w", encoding="utf-8", newline="") as f:
         f.write(TIP)
+    with open(path, "rb") as f:
+        written = f.read()
+    assert written == TIP.encode("utf-8"), "entry.txt bytes differ from TIP"
+    chars = written.decode("utf-8")
+    assert 1 <= len(chars) <= 200, "entry.txt must be 1-200 characters"
+    assert chars.strip(), "entry.txt must not be only whitespace"
 
 
 if __name__ == "__main__":
